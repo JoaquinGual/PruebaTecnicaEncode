@@ -1,1 +1,7 @@
 Agregar al metodo Validar Nombre de usuario, contraseña, tipo documento y Numero de documento
+
+Boton nuevo cuando grabamos no ingresa por la rama del insert si no por la del update
+
+placeholder de contraseña dice Nombre
+
+Crear metodo para validar existencia
