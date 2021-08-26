@@ -1,0 +1,1 @@
+Agregar al metodo Validar Nombre de usuario, contraseña, tipo documento y Numero de documento
