@@ -17,6 +17,7 @@ namespace Tecnica.clases
 		private string nombreUsuario;
 		private string password;
 
+
 		public Suscriptor()
 		{
 			nombre = "";

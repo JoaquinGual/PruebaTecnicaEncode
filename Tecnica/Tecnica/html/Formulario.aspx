@@ -93,7 +93,7 @@
         </div>
         <div class="form-group col-md-6">
               <asp:Label ID="lblContraseña" runat="server" Text="Contraseña"></asp:Label>
-            <asp:TextBox ID="txtContraseña" runat="server" placeholder="Nombre" CssClass="form-control" type="password"></asp:TextBox>
+            <asp:TextBox ID="txtContraseña" runat="server" placeholder="Contraseña" CssClass="form-control" type="password"></asp:TextBox>
         </div>
       </div>
 

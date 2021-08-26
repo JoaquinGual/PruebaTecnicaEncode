@@ -12,14 +12,15 @@ namespace Tecnica
     {
         Datos oDatos = new Datos();
         List<Suscriptor> LS = new List<Suscriptor>();
-        bool nuevo = false;
+        bool nuevo;
         protected void Page_Load(object sender, EventArgs e)
         {
             Habilitar(true);
             btnModificar.Enabled = false;
+            HabilitarInputs(true);
         }
 
-        protected void btnBuscar_Click(object sender, EventArgs e)
+        protected void btnBuscar_Click(object sender, EventArgs e) 
         {
             
             cargarCampos();
@@ -30,9 +31,10 @@ namespace Tecnica
         {
             cargarLista("suscriptor");
             Habilitar(false);
-            nuevo = true;
+            ViewState["nuevo"] = true;
             Limpiar();
             btnBuscar.Enabled = false;
+            HabilitarInputs(false);
         }
 
         protected void btnCancelar_Click(object sender, EventArgs e)
@@ -41,6 +43,7 @@ namespace Tecnica
             txtNumeroDoc.Enabled = true;
             Limpiar();
             btnBuscar.Enabled = true;
+            HabilitarInputs(false);
         }
 
         private void Limpiar()
@@ -58,6 +61,16 @@ namespace Tecnica
 
         public bool ValidarDatos()
         {
+            if (cmbTipo.SelectedIndex == -1)
+            {
+                Response.Write("<script>alert('Seleccione Tipo de Documento!');</script>");
+                return false;
+            }
+            if (txtNumeroDoc.Text == "")
+            {
+                Response.Write("<script>alert('Ingrese Numero de Documento!');</script>");
+                return false;
+            }
             if (txtNombre.Text == "")
             {
                 Response.Write("<script>alert('Ingrese Nombre!');</script>");
@@ -83,6 +96,16 @@ namespace Tecnica
                 Response.Write("<script>alert('Ingrese Telefono!');</script>");
                 return false;
             }
+            if (txtUser.Text == "")
+            {
+                Response.Write("<script>alert('Ingrese Nombre de Usuario!');</script>");
+                return false;
+            }
+            if (txtContraseña.Text == "")
+            {
+                Response.Write("<script>alert('Ingrese Ingrese Contraseña+!');</script>");
+                return false;
+            }
             return true;
         }
 
@@ -100,7 +123,7 @@ namespace Tecnica
                         txtNombre.Text = LS[i].pNombre;
                         txtApellido.Text = LS[i].pApellido;
                         txtDireccion.Text = LS[i].pDireccion;
-                        txtEmail.Text = Convert.ToString(LS[i].pTelefono);
+                        txtEmail.Text = Convert.ToString(LS[i].pEmail);
                         txtTelefono.Text = Convert.ToString(LS[i].pTelefono);
                         txtUser.Text = LS[i].pNombreUsuario;
                         txtContraseña.Text = LS[i].pPassword;
@@ -123,11 +146,13 @@ namespace Tecnica
                 {
                     Response.Write("<script>alert('No se ha encontrado ningun usuario con esos datos!')</script>");
                     Limpiar();
+                    
                 }
                 else
                 {
                     Response.Write("<script>alert('Datos cargados correctamente')</script>");
                     btnModificar.Enabled = true;
+                    btnNuevo.Enabled = false;
                 }
             }
                 
@@ -191,6 +216,16 @@ namespace Tecnica
             btnCancelar.Enabled = !x;
         }
 
+        public void HabilitarInputs(bool x)
+        {
+            txtNombre.Enabled = !x;
+            txtApellido.Enabled = !x;
+            txtDireccion.Enabled = !x;
+            txtEmail.Enabled = !x;
+            txtTelefono.Enabled = !x;
+            txtUser.Enabled = !x;
+            txtContraseña.Enabled = !x;
+        }
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
             string consultaSQL = "";
@@ -209,7 +244,7 @@ namespace Tecnica
                 s.pNombreUsuario = txtUser.Text;
                 s.pPassword = txtContraseña.Text;
 
-                if (nuevo == true)
+                if (bool.Parse(ViewState["nuevo"].ToString()) == true)
                 {
                     for (int i = 0; i < LS.Count; i++)
                     {
@@ -226,21 +261,22 @@ namespace Tecnica
                                       $"values ('{s.pNombre}','{s.pApellido}','{s.pNumeroDocumento}','{s.pTipoDocumento}','{s.pDireccion}','{s.pTelefono}','{s.pEmail}','{s.pNombreUsuario}','{s.pPassword}')";
                         oDatos.Actualizar(consultaSQL);
                         Response.Write("<script>alert('Usuario Registrado Exitosamente!');</script>");
-
+                        
                     }
                 }
                 else
                 {
-                    
-                    consultaSQL = $"update Suscriptor set  Nombre= '{s.pNombre}',Apellido= '{s.pApellido}',Direccion='{s.pDireccion}',Telefono='{s.pTelefono}',Email='{s.pEmail}',NombreUsuario='{s.pNombreUsuario}',Password='{s.pPassword}' where NumeroDocumento ='{txtNumeroDoc.Text}'";
-                    oDatos.Actualizar(consultaSQL);
-                    cargarLista("Suscriptor");
-                    Response.Write("<script>alert('Usuario Actualizado Correctamente');</script>");
-                    txtNumeroDoc.Enabled = true;
+                        consultaSQL = $"update Suscriptor set  Nombre= '{s.pNombre}',Apellido= '{s.pApellido}',Direccion='{s.pDireccion}',Telefono='{s.pTelefono}',Email='{s.pEmail}',NombreUsuario='{s.pNombreUsuario}',Password='{s.pPassword}' where NumeroDocumento ='{txtNumeroDoc.Text}'";
+                        oDatos.Actualizar(consultaSQL);
+                        cargarLista("Suscriptor");
+                        Response.Write("<script>alert('Usuario Actualizado Correctamente');</script>");
+                        txtNumeroDoc.Enabled = true;     
                 }
-                nuevo = false;
+              
+                ViewState["nuevo"] = false;
                 Habilitar(true);
                 btnBuscar.Enabled = true;
+                HabilitarInputs(true);
 
             }
 
@@ -248,11 +284,11 @@ namespace Tecnica
 
         protected void btnModificar_Click(object sender, EventArgs e)
         {
-            nuevo = false;
+            ViewState["nuevo"] = false;
             Habilitar(false);
             txtNumeroDoc.Enabled = false;
             btnBuscar.Enabled = false;
-
+            HabilitarInputs(false);
         }
     }
 }
