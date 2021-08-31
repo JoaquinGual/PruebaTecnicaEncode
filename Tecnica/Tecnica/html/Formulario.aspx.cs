@@ -4,20 +4,26 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Tecnica.clases;
+using BusinessLogicLayer;
+using Entities;
 
 namespace Tecnica
 {
     public partial class Formilario : System.Web.UI.Page
     {
-        Datos oDatos = new Datos();
-        List<Suscriptor> LS = new List<Suscriptor>();
-        bool nuevo;
+
+        int id;
+        
         protected void Page_Load(object sender, EventArgs e)
         {
-            Habilitar(true);
-            btnModificar.Enabled = false;
-            HabilitarInputs(true);
+            
+            if (!IsPostBack)
+            {
+                Habilitar(true);
+                btnModificar.Enabled = false;
+                HabilitarInputs(true);
+            }
+            cmbEstado.Enabled = false;
         }
 
         protected void btnBuscar_Click(object sender, EventArgs e) 
@@ -29,12 +35,14 @@ namespace Tecnica
         }
         protected void btnNuevo_Click(object sender, EventArgs e)
         {
-            cargarLista("suscriptor");
+            cmbEstado.SelectedIndex = 0;
+            BLLSuscriptor.CargarLista("suscriptor");
             Habilitar(false);
             ViewState["nuevo"] = true;
             Limpiar();
             btnBuscar.Enabled = false;
             HabilitarInputs(false);
+            txtNumeroDoc.Enabled = true;
         }
 
         protected void btnCancelar_Click(object sender, EventArgs e)
@@ -43,13 +51,16 @@ namespace Tecnica
             txtNumeroDoc.Enabled = true;
             Limpiar();
             btnBuscar.Enabled = true;
-            HabilitarInputs(false);
+            btnModificar.Enabled = false;
+            HabilitarInputs(true);
+            cmbTipo.Enabled = true;
+            txtNumeroDoc.Text = "";
+            cmbEstado.SelectedIndex = 0;
         }
 
         private void Limpiar()
         {
-            cmbTipo.SelectedIndex = 0;
-            txtNumeroDoc.Text = "";
+            
             txtNombre.Text = "";
             txtApellido.Text = "";
             txtDireccion.Text = "";
@@ -58,52 +69,53 @@ namespace Tecnica
             txtUser.Text = "";
             txtContraseña.Text = "";
         }
-
+        //Page.ClientScript.RegisterStartupScript(this.GetType(), "MyFunction", "Limpiar();", true);
         public bool ValidarDatos()
         {
             if (cmbTipo.SelectedIndex == -1)
             {
-                Response.Write("<script>alert('Seleccione Tipo de Documento!');</script>");
+                //Page.ClientScript.RegisterStartupScript(this.GetType(), "MyFunction", "Tipo();", true);
+
                 return false;
             }
             if (txtNumeroDoc.Text == "")
             {
-                Response.Write("<script>alert('Ingrese Numero de Documento!');</script>");
+                //Page.ClientScript.RegisterStartupScript(this.GetType(), "MyFunction", "Doc();", true);
                 return false;
             }
             if (txtNombre.Text == "")
             {
-                Response.Write("<script>alert('Ingrese Nombre!');</script>");
+                //Page.ClientScript.RegisterStartupScript(this.GetType(), "MyFunction", "Nombre();", true);
                 return false;
             }
             if (txtApellido.Text == "")
             {
-                Response.Write("<script>alert('Ingrese Apellido!');</script>");
+                //Page.ClientScript.RegisterStartupScript(this.GetType(), "MyFunction", "Apellido();", true);
                 return false;
             }
             if (txtDireccion.Text == "")
             {
-                Response.Write("<script>alert('Ingrese Direccion!');</script>");
+                //Page.ClientScript.RegisterStartupScript(this.GetType(), "MyFunction", "Direccion();", true);
                 return false;
             }
             if (txtEmail.Text == "")
             {
-                Response.Write("<script>alert('Ingrese Email!');</script>");
+                //Page.ClientScript.RegisterStartupScript(this.GetType(), "MyFunction", "Mail();", true);
                 return false;
             }
             if (txtTelefono.Text == "")
             {
-                Response.Write("<script>alert('Ingrese Telefono!');</script>");
+                //Page.ClientScript.RegisterStartupScript(this.GetType(), "MyFunction", "Telefono();", true);
                 return false;
             }
             if (txtUser.Text == "")
             {
-                Response.Write("<script>alert('Ingrese Nombre de Usuario!');</script>");
+                //Page.ClientScript.RegisterStartupScript(this.GetType(), "MyFunction", "User();", true);
                 return false;
             }
             if (txtContraseña.Text == "")
             {
-                Response.Write("<script>alert('Ingrese Ingrese Contraseña+!');</script>");
+                //Page.ClientScript.RegisterStartupScript(this.GetType(), "MyFunction", "Pass();", true);
                 return false;
             }
             return true;
@@ -112,7 +124,13 @@ namespace Tecnica
         public void cargarCampos()
         {
             bool flag = false;
-            cargarLista("Suscriptor");
+
+
+            List<Suscriptor> LS = BLLSuscriptor.CargarLista("Suscriptor");
+            List<Suscripcion> LIS = BLLSuscripcion.CargarSuscripciones("Suscripcion");
+
+
+
             for (int i = 0; i < LS.Count; i++)
             {
                 if (txtNumeroDoc.Text != "" && cmbTipo.SelectedValue != "")
@@ -120,6 +138,8 @@ namespace Tecnica
                     if (cmbTipo.SelectedValue == LS[i].pTipoDocumento && Convert.ToInt32(txtNumeroDoc.Text) == LS[i].pNumeroDocumento)
                     {
                         flag = true;
+                        id = LS[i].pId;
+                        ViewState["numerosub"] = id;
                         txtNombre.Text = LS[i].pNombre;
                         txtApellido.Text = LS[i].pApellido;
                         txtDireccion.Text = LS[i].pDireccion;
@@ -128,86 +148,51 @@ namespace Tecnica
                         txtUser.Text = LS[i].pNombreUsuario;
                         txtContraseña.Text = LS[i].pPassword;
 
-                    }
-                    
+                    }                
                 }
                 else
                 {
-                    Response.Write("<script>alert('Ingrese Tipo y Numero de documento!')</script>");
                     break;
                 }
+            }
+            for (int i = 0; i < LIS.Count; i++)
+            {
 
-
-
+                if (LIS[i].pidSuscriptor == id)
+                {
+                    cmbEstado.SelectedIndex = 1;
+                    break;
+                }
+                else
+                {
+                    cmbEstado.SelectedIndex = 2;
+                    
+                }
             }
             if (txtNumeroDoc.Text != "" && cmbTipo.SelectedValue != "")
             {
                 if (flag == false)
                 {
-                    Response.Write("<script>alert('No se ha encontrado ningun usuario con esos datos!')</script>");
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "MyFunction", "NotFound();", true); 
                     Limpiar();
-                    
+                    Habilitar(true);
+                    btnModificar.Enabled = false;
+                    cmbEstado.SelectedIndex = 0;
+
                 }
                 else
                 {
-                    Response.Write("<script>alert('Datos cargados correctamente')</script>");
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "MyFunction", "Founded();", true);
                     btnModificar.Enabled = true;
                     btnNuevo.Enabled = false;
+                    
                 }
             }
                 
 
         }
 
-        public void cargarLista(string Tabla)
-        {
-            oDatos.LeerTabla(Tabla);
-            LS.Clear();
-            while (oDatos.Lector.Read())
-            {
-                Suscriptor s = new Suscriptor();
-
-                
-                if (!oDatos.Lector.IsDBNull(1))
-                {
-                    s.pNombre = oDatos.Lector.GetString(1);
-                }
-                if (!oDatos.Lector.IsDBNull(2))
-                {
-                    s.pApellido = oDatos.Lector.GetString(2);
-                }
-                if (!oDatos.Lector.IsDBNull(3))
-                {
-                    s.pNumeroDocumento = oDatos.Lector.GetInt32(3);
-                }
-                if (!oDatos.Lector.IsDBNull(4))
-                {
-                    s.pTipoDocumento = oDatos.Lector.GetString(4);
-                }
-                if (!oDatos.Lector.IsDBNull(5))
-                {
-                    s.pDireccion = oDatos.Lector.GetString(5);
-                }
-                if (!oDatos.Lector.IsDBNull(6))
-                {
-                    s.pTelefono = oDatos.Lector.GetString(6);
-                }
-                if (!oDatos.Lector.IsDBNull(7))
-                {
-                    s.pEmail = oDatos.Lector.GetString(7);
-                }
-                if (!oDatos.Lector.IsDBNull(8))
-                {
-                    s.pNombreUsuario = oDatos.Lector.GetString(8);
-                }
-                if (!oDatos.Lector.IsDBNull(9))
-                {
-                    s.pPassword = oDatos.Lector.GetString(9);
-                }
-                LS.Add(s);
-            }
-            oDatos.Desconectar();
-        }
+        
 
         public void Habilitar(bool x)
         {
@@ -226,15 +211,17 @@ namespace Tecnica
             txtUser.Enabled = !x;
             txtContraseña.Enabled = !x;
         }
+        
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
-            string consultaSQL = "";
+            bool sameDoc = false;
             bool existe = false;
-            cargarLista("suscriptor");
+            List<Suscriptor> LS = BLLSuscriptor.CargarLista("Suscriptor");
             if (ValidarDatos())
             {
-                Suscriptor s = new Suscriptor();
-                s.pTipoDocumento = cmbTipo.SelectedValue;
+                
+                Entities.Suscriptor s = new Entities.Suscriptor();
+                s.pTipoDocumento =  cmbTipo.SelectedValue;
                 s.pNumeroDocumento = Convert.ToInt32(txtNumeroDoc.Text);
                 s.pNombre = txtNombre.Text;
                 s.pApellido = txtApellido.Text;
@@ -254,29 +241,56 @@ namespace Tecnica
                             existe = true;
                             break;
                         }
+                        if (s.pNombreUsuario == LS[i].pNombreUsuario)
+                        {
+                            Response.Write("<script>alert('Ya existe un Usuario con ese Nombre de Usuario!');</script>");
+                            existe = true;
+                            break;
+                        }
                     }
                     if (existe == false)
                     {
-                        consultaSQL = $"insert into Suscriptor (Nombre,Apellido,NumeroDocumento,TipoDocumento,Direccion,Telefono,Email,NombreUsuario,Password) " +
-                                      $"values ('{s.pNombre}','{s.pApellido}','{s.pNumeroDocumento}','{s.pTipoDocumento}','{s.pDireccion}','{s.pTelefono}','{s.pEmail}','{s.pNombreUsuario}','{s.pPassword}')";
-                        oDatos.Actualizar(consultaSQL);
+                        BLLSuscriptor.InsertarSuscriptor(s);
                         Response.Write("<script>alert('Usuario Registrado Exitosamente!');</script>");
-                        
+                        ViewState["nuevo"] = false;
+                        Habilitar(true);
+                        btnBuscar.Enabled = true;
+                        HabilitarInputs(true);
+
                     }
                 }
                 else
                 {
-                        consultaSQL = $"update Suscriptor set  Nombre= '{s.pNombre}',Apellido= '{s.pApellido}',Direccion='{s.pDireccion}',Telefono='{s.pTelefono}',Email='{s.pEmail}',NombreUsuario='{s.pNombreUsuario}',Password='{s.pPassword}' where NumeroDocumento ='{txtNumeroDoc.Text}'";
-                        oDatos.Actualizar(consultaSQL);
-                        cargarLista("Suscriptor");
-                        Response.Write("<script>alert('Usuario Actualizado Correctamente');</script>");
-                        txtNumeroDoc.Enabled = true;     
+                    for (int i = 0; i < LS.Count; i++)
+                    {
+                        if (s.pNumeroDocumento == LS[i].pNumeroDocumento)
+                        {
+                            sameDoc = true;
+                            break;
+                        }
+                        if (s.pNombreUsuario == LS[i].pNombreUsuario && sameDoc == false)
+                        {
+                            Response.Write("<script>alert('Ya existe un Usuario con ese Nombre de Usuario!');</script>");
+                            existe = true;
+                            break;
+                        }
+                    }
+                    if (existe == false && sameDoc == true)
+                    {
+                        BLLSuscriptor.Modificar(s);
+                        Response.Write("<script>alert('Usuario Modificado Exitosamente!');</script>");
+                        ViewState["nuevo"] = false;
+                        Habilitar(true);
+                        btnBuscar.Enabled = true;
+                        HabilitarInputs(true);
+                        txtNumeroDoc.Enabled = true;
+                        btnModificar.Enabled = false;
+                        cmbTipo.Enabled = true;
+                    }
+                   
                 }
               
-                ViewState["nuevo"] = false;
-                Habilitar(true);
-                btnBuscar.Enabled = true;
-                HabilitarInputs(true);
+
 
             }
 
@@ -288,7 +302,33 @@ namespace Tecnica
             Habilitar(false);
             txtNumeroDoc.Enabled = false;
             btnBuscar.Enabled = false;
+            btnModificar.Enabled = false;
+            cmbTipo.Enabled = false;
             HabilitarInputs(false);
+        }
+
+        protected void btnRegistrar_Click(object sender, EventArgs e)
+        {
+            
+            Entities.Suscripcion s = new Entities.Suscripcion();
+
+            s.pidSuscriptor = (int)ViewState["numerosub"];
+            
+            
+            if (ValidarDatos())
+            {
+                if (cmbEstado.SelectedIndex == 2)
+                {
+                    BLLSuscripcion.registrarSuscripcion(s);
+                    Response.Write("<script>alert('Usuario Suscrito Correctamente!');</script>");
+                    cargarCampos();
+                }
+                else
+                {
+                    Response.Write("<script>alert('Este Usuario ya tiene una Suscripcion Vigente!');</script>");
+                }
+                
+            }
         }
     }
 }

@@ -1,3 +1,5 @@
+D:\Proyectos\Tecnica\Tecnica\obj\Debug\Tecnica.csprojAssemblyReference.cache
+D:\Proyectos\Tecnica\Tecnica\obj\Debug\Tecnica.csproj.CoreCompileInputs.cache
 D:\Proyectos\Tecnica\Tecnica\bin\Tecnica.dll.config
 D:\Proyectos\Tecnica\Tecnica\bin\Tecnica.dll
 D:\Proyectos\Tecnica\Tecnica\bin\Tecnica.pdb
@@ -27,10 +29,14 @@ D:\Proyectos\Tecnica\Tecnica\bin\roslyn\vbc.exe.config
 D:\Proyectos\Tecnica\Tecnica\bin\roslyn\vbc.rsp
 D:\Proyectos\Tecnica\Tecnica\bin\roslyn\VBCSCompiler.exe
 D:\Proyectos\Tecnica\Tecnica\bin\roslyn\VBCSCompiler.exe.config
+D:\Proyectos\Tecnica\Tecnica\bin\BusinessLogicLayer.dll
+D:\Proyectos\Tecnica\Tecnica\bin\Entities.dll
 D:\Proyectos\Tecnica\Tecnica\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+D:\Proyectos\Tecnica\Tecnica\bin\DataAccessLayer.dll
+D:\Proyectos\Tecnica\Tecnica\bin\BusinessLogicLayer.pdb
+D:\Proyectos\Tecnica\Tecnica\bin\Entities.pdb
 D:\Proyectos\Tecnica\Tecnica\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-D:\Proyectos\Tecnica\Tecnica\obj\Debug\Tecnica.csprojAssemblyReference.cache
-D:\Proyectos\Tecnica\Tecnica\obj\Debug\Tecnica.csproj.CoreCompileInputs.cache
+D:\Proyectos\Tecnica\Tecnica\bin\DataAccessLayer.pdb
 D:\Proyectos\Tecnica\Tecnica\obj\Debug\Tecnica.csproj.CopyComplete
 D:\Proyectos\Tecnica\Tecnica\obj\Debug\Tecnica.dll
 D:\Proyectos\Tecnica\Tecnica\obj\Debug\Tecnica.pdb

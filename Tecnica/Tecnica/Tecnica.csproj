@@ -73,9 +73,6 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="clases\Datos.cs" />
-    <Compile Include="clases\Suscripcion.cs" />
-    <Compile Include="clases\Suscriptor.cs" />
     <Compile Include="html\Formulario.aspx.cs">
       <DependentUpon>Formulario.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -93,6 +90,16 @@
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BusinessLogicLayer\BusinessLogicLayer.csproj">
+      <Project>{6590c72f-e7ad-4b68-8351-35bc8385985a}</Project>
+      <Name>BusinessLogicLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Entities\Entities.csproj">
+      <Project>{BC97D5B3-7ABE-48A7-9478-9FD6F9C70113}</Project>
+      <Name>Entities</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

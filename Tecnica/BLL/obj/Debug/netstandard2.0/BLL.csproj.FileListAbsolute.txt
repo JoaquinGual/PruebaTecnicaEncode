@@ -1,0 +1,14 @@
+D:\Proyectos\Tecnica\BLL\bin\Debug\netstandard2.0\BLL.deps.json
+D:\Proyectos\Tecnica\BLL\bin\Debug\netstandard2.0\BLL.dll
+D:\Proyectos\Tecnica\BLL\bin\Debug\netstandard2.0\BLL.pdb
+D:\Proyectos\Tecnica\BLL\bin\Debug\netstandard2.0\DAL.dll
+D:\Proyectos\Tecnica\BLL\bin\Debug\netstandard2.0\Entidades.dll
+D:\Proyectos\Tecnica\BLL\bin\Debug\netstandard2.0\DAL.pdb
+D:\Proyectos\Tecnica\BLL\bin\Debug\netstandard2.0\Entidades.pdb
+D:\Proyectos\Tecnica\BLL\obj\Debug\netstandard2.0\BLL.csprojAssemblyReference.cache
+D:\Proyectos\Tecnica\BLL\obj\Debug\netstandard2.0\BLL.csproj.CoreCompileInputs.cache
+D:\Proyectos\Tecnica\BLL\obj\Debug\netstandard2.0\BLL.AssemblyInfoInputs.cache
+D:\Proyectos\Tecnica\BLL\obj\Debug\netstandard2.0\BLL.AssemblyInfo.cs
+D:\Proyectos\Tecnica\BLL\obj\Debug\netstandard2.0\BLL.csproj.CopyComplete
+D:\Proyectos\Tecnica\BLL\obj\Debug\netstandard2.0\BLL.dll
+D:\Proyectos\Tecnica\BLL\obj\Debug\netstandard2.0\BLL.pdb

@@ -1,0 +1,11 @@
+D:\Proyectos\Tecnica\BusinessLogicLayer\obj\Debug\BusinessLogicLayer.csprojAssemblyReference.cache
+D:\Proyectos\Tecnica\BusinessLogicLayer\obj\Debug\BusinessLogicLayer.csproj.CoreCompileInputs.cache
+D:\Proyectos\Tecnica\BusinessLogicLayer\bin\Debug\BusinessLogicLayer.dll
+D:\Proyectos\Tecnica\BusinessLogicLayer\bin\Debug\BusinessLogicLayer.pdb
+D:\Proyectos\Tecnica\BusinessLogicLayer\bin\Debug\DataAccessLayer.dll
+D:\Proyectos\Tecnica\BusinessLogicLayer\bin\Debug\Entities.dll
+D:\Proyectos\Tecnica\BusinessLogicLayer\bin\Debug\DataAccessLayer.pdb
+D:\Proyectos\Tecnica\BusinessLogicLayer\bin\Debug\Entities.pdb
+D:\Proyectos\Tecnica\BusinessLogicLayer\obj\Debug\BusinessLogicLayer.csproj.CopyComplete
+D:\Proyectos\Tecnica\BusinessLogicLayer\obj\Debug\BusinessLogicLayer.dll
+D:\Proyectos\Tecnica\BusinessLogicLayer\obj\Debug\BusinessLogicLayer.pdb

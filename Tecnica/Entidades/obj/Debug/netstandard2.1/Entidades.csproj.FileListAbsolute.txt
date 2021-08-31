@@ -1,0 +1,9 @@
+D:\Proyectos\Tecnica\Entidades\bin\Debug\netstandard2.1\Entidades.deps.json
+D:\Proyectos\Tecnica\Entidades\bin\Debug\netstandard2.1\Entidades.dll
+D:\Proyectos\Tecnica\Entidades\bin\Debug\netstandard2.1\Entidades.pdb
+D:\Proyectos\Tecnica\Entidades\obj\Debug\netstandard2.1\Entidades.csprojAssemblyReference.cache
+D:\Proyectos\Tecnica\Entidades\obj\Debug\netstandard2.1\Entidades.csproj.CoreCompileInputs.cache
+D:\Proyectos\Tecnica\Entidades\obj\Debug\netstandard2.1\Entidades.AssemblyInfoInputs.cache
+D:\Proyectos\Tecnica\Entidades\obj\Debug\netstandard2.1\Entidades.AssemblyInfo.cs
+D:\Proyectos\Tecnica\Entidades\obj\Debug\netstandard2.1\Entidades.dll
+D:\Proyectos\Tecnica\Entidades\obj\Debug\netstandard2.1\Entidades.pdb
