@@ -43,7 +43,7 @@ namespace DataAccessLayer
             }
             
         }
-        public static void Modificar(Suscriptor suscriptor)
+        public static bool Modificar(Suscriptor suscriptor)
         {
             try
             {
@@ -64,11 +64,12 @@ namespace DataAccessLayer
                 oDatos.Comando.ExecuteNonQuery();
                 oDatos.Comando.Parameters.Clear();
                 oDatos.Desconectar();
+                return true;
             }
             catch (Exception)
             {
 
-                throw;
+                return false;
             }
            
             
@@ -135,7 +136,7 @@ namespace DataAccessLayer
             catch (Exception)
             {
 
-                throw;
+                throw new Exception("Ha ocurrido un Error");
             }
             
         }

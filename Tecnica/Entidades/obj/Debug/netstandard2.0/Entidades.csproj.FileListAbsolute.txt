@@ -1,9 +1,0 @@
-D:\Proyectos\Tecnica\Entidades\bin\Debug\netstandard2.0\Entidades.deps.json
-D:\Proyectos\Tecnica\Entidades\bin\Debug\netstandard2.0\Entidades.dll
-D:\Proyectos\Tecnica\Entidades\bin\Debug\netstandard2.0\Entidades.pdb
-D:\Proyectos\Tecnica\Entidades\obj\Debug\netstandard2.0\Entidades.csprojAssemblyReference.cache
-D:\Proyectos\Tecnica\Entidades\obj\Debug\netstandard2.0\Entidades.csproj.CoreCompileInputs.cache
-D:\Proyectos\Tecnica\Entidades\obj\Debug\netstandard2.0\Entidades.AssemblyInfoInputs.cache
-D:\Proyectos\Tecnica\Entidades\obj\Debug\netstandard2.0\Entidades.AssemblyInfo.cs
-D:\Proyectos\Tecnica\Entidades\obj\Debug\netstandard2.0\Entidades.dll
-D:\Proyectos\Tecnica\Entidades\obj\Debug\netstandard2.0\Entidades.pdb

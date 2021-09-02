@@ -4,3 +4,9 @@ D:\Proyectos\Tecnica\Entities\obj\Debug\Entities.csprojAssemblyReference.cache
 D:\Proyectos\Tecnica\Entities\obj\Debug\Entities.csproj.CoreCompileInputs.cache
 D:\Proyectos\Tecnica\Entities\obj\Debug\Entities.dll
 D:\Proyectos\Tecnica\Entities\obj\Debug\Entities.pdb
+C:\Users\UsrTarde\Documents\GitHub\PruebaTecnicaEncode\Tecnica\Entities\bin\Debug\Entities.dll
+C:\Users\UsrTarde\Documents\GitHub\PruebaTecnicaEncode\Tecnica\Entities\bin\Debug\Entities.pdb
+C:\Users\UsrTarde\Documents\GitHub\PruebaTecnicaEncode\Tecnica\Entities\obj\Debug\Entities.csproj.AssemblyReference.cache
+C:\Users\UsrTarde\Documents\GitHub\PruebaTecnicaEncode\Tecnica\Entities\obj\Debug\Entities.csproj.CoreCompileInputs.cache
+C:\Users\UsrTarde\Documents\GitHub\PruebaTecnicaEncode\Tecnica\Entities\obj\Debug\Entities.dll
+C:\Users\UsrTarde\Documents\GitHub\PruebaTecnicaEncode\Tecnica\Entities\obj\Debug\Entities.pdb

@@ -237,13 +237,13 @@ namespace Tecnica
                     {
                         if (s.pNumeroDocumento == LS[i].pNumeroDocumento)
                         {
-                            Response.Write("<script>alert('Ya existe un Usuario con ese DNI!');</script>");
+                            Page.ClientScript.RegisterStartupScript(this.GetType(), "MyFunction", "SameDoc();", true);
                             existe = true;
                             break;
                         }
                         if (s.pNombreUsuario == LS[i].pNombreUsuario)
                         {
-                            Response.Write("<script>alert('Ya existe un Usuario con ese Nombre de Usuario!');</script>");
+                            Page.ClientScript.RegisterStartupScript(this.GetType(), "MyFunction", "SameUser();", true);
                             existe = true;
                             break;
                         }
@@ -251,7 +251,7 @@ namespace Tecnica
                     if (existe == false)
                     {
                         BLLSuscriptor.InsertarSuscriptor(s);
-                        Response.Write("<script>alert('Usuario Registrado Exitosamente!');</script>");
+                        Page.ClientScript.RegisterStartupScript(this.GetType(), "MyFunction", "InsertOk();", true);
                         ViewState["nuevo"] = false;
                         Habilitar(true);
                         btnBuscar.Enabled = true;
@@ -270,7 +270,8 @@ namespace Tecnica
                         }
                         if (s.pNombreUsuario == LS[i].pNombreUsuario && sameDoc == false)
                         {
-                            Response.Write("<script>alert('Ya existe un Usuario con ese Nombre de Usuario!');</script>");
+
+                            Page.ClientScript.RegisterStartupScript(this.GetType(), "MyFunction", "SameUser();", true);
                             existe = true;
                             break;
                         }
@@ -278,7 +279,7 @@ namespace Tecnica
                     if (existe == false && sameDoc == true)
                     {
                         BLLSuscriptor.Modificar(s);
-                        Response.Write("<script>alert('Usuario Modificado Exitosamente!');</script>");
+                        Page.ClientScript.RegisterStartupScript(this.GetType(), "MyFunction", "ModifyOk();", true);
                         ViewState["nuevo"] = false;
                         Habilitar(true);
                         btnBuscar.Enabled = true;
@@ -320,15 +321,17 @@ namespace Tecnica
                 if (cmbEstado.SelectedIndex == 2)
                 {
                     BLLSuscripcion.registrarSuscripcion(s);
-                    Response.Write("<script>alert('Usuario Suscrito Correctamente!');</script>");
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "MyFunction", "SusOk();", true);
                     cargarCampos();
                 }
                 else
                 {
-                    Response.Write("<script>alert('Este Usuario ya tiene una Suscripcion Vigente!');</script>");
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "MyFunction", "Vigente();", true);
                 }
                 
             }
         }
+
+
     }
 }

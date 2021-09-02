@@ -7,3 +7,12 @@ D:\Proyectos\Tecnica\DataAccessLayer\obj\Debug\DataAccessLayer.csproj.CoreCompil
 D:\Proyectos\Tecnica\DataAccessLayer\obj\Debug\DataAccessLayer.csproj.CopyComplete
 D:\Proyectos\Tecnica\DataAccessLayer\obj\Debug\DataAccessLayer.dll
 D:\Proyectos\Tecnica\DataAccessLayer\obj\Debug\DataAccessLayer.pdb
+C:\Users\UsrTarde\Documents\GitHub\PruebaTecnicaEncode\Tecnica\DataAccessLayer\bin\Debug\DataAccessLayer.dll
+C:\Users\UsrTarde\Documents\GitHub\PruebaTecnicaEncode\Tecnica\DataAccessLayer\bin\Debug\DataAccessLayer.pdb
+C:\Users\UsrTarde\Documents\GitHub\PruebaTecnicaEncode\Tecnica\DataAccessLayer\bin\Debug\Entities.dll
+C:\Users\UsrTarde\Documents\GitHub\PruebaTecnicaEncode\Tecnica\DataAccessLayer\bin\Debug\Entities.pdb
+C:\Users\UsrTarde\Documents\GitHub\PruebaTecnicaEncode\Tecnica\DataAccessLayer\obj\Debug\DataAccessLayer.csproj.AssemblyReference.cache
+C:\Users\UsrTarde\Documents\GitHub\PruebaTecnicaEncode\Tecnica\DataAccessLayer\obj\Debug\DataAccessLayer.csproj.CoreCompileInputs.cache
+C:\Users\UsrTarde\Documents\GitHub\PruebaTecnicaEncode\Tecnica\DataAccessLayer\obj\Debug\DataAccessLayer.csproj.CopyComplete
+C:\Users\UsrTarde\Documents\GitHub\PruebaTecnicaEncode\Tecnica\DataAccessLayer\obj\Debug\DataAccessLayer.dll
+C:\Users\UsrTarde\Documents\GitHub\PruebaTecnicaEncode\Tecnica\DataAccessLayer\obj\Debug\DataAccessLayer.pdb

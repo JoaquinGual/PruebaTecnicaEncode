@@ -9,3 +9,14 @@ D:\Proyectos\Tecnica\BusinessLogicLayer\bin\Debug\Entities.pdb
 D:\Proyectos\Tecnica\BusinessLogicLayer\obj\Debug\BusinessLogicLayer.csproj.CopyComplete
 D:\Proyectos\Tecnica\BusinessLogicLayer\obj\Debug\BusinessLogicLayer.dll
 D:\Proyectos\Tecnica\BusinessLogicLayer\obj\Debug\BusinessLogicLayer.pdb
+C:\Users\UsrTarde\Documents\GitHub\PruebaTecnicaEncode\Tecnica\BusinessLogicLayer\bin\Debug\BusinessLogicLayer.dll
+C:\Users\UsrTarde\Documents\GitHub\PruebaTecnicaEncode\Tecnica\BusinessLogicLayer\bin\Debug\BusinessLogicLayer.pdb
+C:\Users\UsrTarde\Documents\GitHub\PruebaTecnicaEncode\Tecnica\BusinessLogicLayer\bin\Debug\DataAccessLayer.dll
+C:\Users\UsrTarde\Documents\GitHub\PruebaTecnicaEncode\Tecnica\BusinessLogicLayer\bin\Debug\Entities.dll
+C:\Users\UsrTarde\Documents\GitHub\PruebaTecnicaEncode\Tecnica\BusinessLogicLayer\bin\Debug\DataAccessLayer.pdb
+C:\Users\UsrTarde\Documents\GitHub\PruebaTecnicaEncode\Tecnica\BusinessLogicLayer\bin\Debug\Entities.pdb
+C:\Users\UsrTarde\Documents\GitHub\PruebaTecnicaEncode\Tecnica\BusinessLogicLayer\obj\Debug\BusinessLogicLayer.csproj.AssemblyReference.cache
+C:\Users\UsrTarde\Documents\GitHub\PruebaTecnicaEncode\Tecnica\BusinessLogicLayer\obj\Debug\BusinessLogicLayer.csproj.CoreCompileInputs.cache
+C:\Users\UsrTarde\Documents\GitHub\PruebaTecnicaEncode\Tecnica\BusinessLogicLayer\obj\Debug\BusinessLogicLayer.csproj.CopyComplete
+C:\Users\UsrTarde\Documents\GitHub\PruebaTecnicaEncode\Tecnica\BusinessLogicLayer\obj\Debug\BusinessLogicLayer.dll
+C:\Users\UsrTarde\Documents\GitHub\PruebaTecnicaEncode\Tecnica\BusinessLogicLayer\obj\Debug\BusinessLogicLayer.pdb

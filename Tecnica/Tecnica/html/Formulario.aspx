@@ -113,8 +113,8 @@
         <!-- Fin ormulario -->
         
         <script>
-            function Tipo() {
-                swal("Ingrese Tipo de Documento");
+            function Vigente() {
+                swal("Este Usuario ya tiene una Suscripcion vigente!");
             }
             function NotFound() {
                 swal("No se ha encontrado ningun usuario con esos datos!");
@@ -122,20 +122,20 @@
             function Founded() {
                 swal("Datos Cargados!");
             }
-            function Doc() {
-                swal("Ingrese Numero de Documento");
+            function SusOk() {
+                swal("Usuario Suscrito correctamente!");
             }
-            function Nombre() {
-                swal("Ingrese Nombre");
+            function ModifyOk() {
+                swal("Usuario Modificado con Exito!");
             }
-            function Apellido() {
-                swal("Ingrese Apellido");
+            function SameUser() {
+                swal("Ya existe un registro con el mismo Nombre de Usuario");
             }
-            function Direccion() {
-                swal("Ingrese Direccion");
+            function InsertOk() {
+                swal("Usuario Registrado Correctamente!");
             }
-            function Mail() {
-                swal("Ingrese Email");
+            function SameDoc() {
+                swal("Ya existe un Usuario con ese numero de Documento");
             }
             function Telefono() {
                 swal("Ingrese Telefono");

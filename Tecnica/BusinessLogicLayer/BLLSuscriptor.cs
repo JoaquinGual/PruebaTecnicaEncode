@@ -20,9 +20,9 @@ namespace BusinessLogicLayer
             return DALSuscriptor.cargarLista(tabla);
             
         }
-        public static void Modificar(Suscriptor s)
+        public static bool Modificar(Suscriptor s)
         {
-            DALSuscriptor.Modificar(s);
+            return DALSuscriptor.Modificar(s);
         }
         
     }
