@@ -11,6 +11,7 @@ namespace DataAccessLayer
 {
     public class DALSuscripcion
     {
+        //Carga lista con datos de suscripciones
         public static List<Suscripcion> CargarSuscripciones(string tabla)
         {
             try
@@ -44,35 +45,31 @@ namespace DataAccessLayer
         }
 
             
-
-        public static void InsertarSuscripcion(Suscripcion suscripcion)
+        //Inserta nueva suscripcion
+        public static bool InsertarSuscripcion(Suscripcion suscripcion)
         {
+            Datos oDatos = new Datos();
             try
             {
-                Datos oDatos = new Datos();
-                //string proc = "registrarSuscripcion";
                 
-                //oDatos.Comando.CommandType = CommandType.StoredProcedure;
-                //oDatos.Comando.CommandText = proc;
-                //oDatos.Comando.Parameters.AddWithValue("@idSuscriptor", suscripcion.pidSuscriptor);
-                //oDatos.Comando.Parameters.AddWithValue("@FechaAlta", suscripcion.pfechaAlta);
-                //oDatos.Comando.ExecuteNonQuery();
-                //oDatos.Desconectar();
-                using (OleDbConnection con = new OleDbConnection(oDatos.Conectionstring))
-                {
-                    con.Open();
-                    using (OleDbCommand cmd = new OleDbCommand(@"registrarSuscripcion", con))
-                    {
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Parameters.AddWithValue("@idSuscriptor", suscripcion.pidSuscriptor);
-                        cmd.ExecuteNonQuery();
-                    }
-                }
+                string proc = "registrarSuscripcion";
+                oDatos.Conectar();
+                oDatos.Comando.CommandType = CommandType.StoredProcedure;
+                oDatos.Comando.CommandText = proc;
+                oDatos.Comando.Parameters.AddWithValue("@idSuscriptor", suscripcion.pidSuscriptor);
+                oDatos.transaction = oDatos.conexion.BeginTransaction();
+                oDatos.Comando.Transaction = oDatos.transaction;
+                oDatos.Comando.ExecuteNonQuery();
+                oDatos.Comando.Parameters.Clear();
+                oDatos.CommitTransaction();
+                return true;
+                
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-
-                throw;
+                oDatos.BeginTransaction();
+                return false;
+                
             }
 
         }

@@ -6,14 +6,15 @@ using System.Threading.Tasks;
 using System.Data;
 using System.Data.OleDb;
 using System.Configuration;
-
+using System.Threading;
 
 namespace DataAccessLayer
 {
     public class Datos
     {
-        OleDbConnection conexion;
+        public OleDbConnection conexion;
         OleDbCommand comando;
+        public OleDbTransaction transaction;
         OleDbDataReader lector;
         string conectionstring = ConfigurationManager.ConnectionStrings["conDB"].ConnectionString;
 
@@ -42,6 +43,40 @@ namespace DataAccessLayer
 
         //Metodos
 
+            //Transacciones
+        public void BeginTransaction()
+        {
+            int TimeOut = 36;
+            while (conexion != null)
+            {
+                Thread.Sleep(250);
+                TimeOut--;
+
+                if (TimeOut == 0)
+                {
+                    RollbackTransaction();
+                }
+            }
+
+        }
+            //Commit
+
+        public void CommitTransaction()
+        {
+            transaction.Commit();
+            transaction.Dispose();
+            conexion.Dispose();
+            conexion = null;
+        }
+
+            //Rollback
+        public void RollbackTransaction()
+        {
+            transaction.Rollback();
+            transaction.Dispose();
+            conexion.Dispose();
+            conexion = null;
+        }
         public void Conectar()
         {
             conexion.ConnectionString = conectionstring;

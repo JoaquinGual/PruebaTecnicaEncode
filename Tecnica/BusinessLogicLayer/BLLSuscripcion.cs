@@ -10,9 +10,9 @@ namespace BusinessLogicLayer
 {
     public class BLLSuscripcion
     {
-        public static void registrarSuscripcion(Suscripcion sub)
+        public static bool registrarSuscripcion(Suscripcion sub)
         {
-            DALSuscripcion.InsertarSuscripcion(sub);
+            return DALSuscripcion.InsertarSuscripcion(sub);
         }
         public static List<Suscripcion> CargarSuscripciones(string tabla)
         {

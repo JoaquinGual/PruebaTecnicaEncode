@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using BusinessLogicLayer;
 using Entities;
 
+
 namespace Tecnica
 {
     public partial class Formilario : System.Web.UI.Page
@@ -26,6 +27,7 @@ namespace Tecnica
             cmbEstado.Enabled = false;
         }
 
+        //Busca suscriptores en lista y los muestra cargados
         protected void btnBuscar_Click(object sender, EventArgs e) 
         {
             
@@ -33,6 +35,7 @@ namespace Tecnica
             
             
         }
+        //Permite que cuando se guarde un suscriptor ingrese por la rama de NUEVO
         protected void btnNuevo_Click(object sender, EventArgs e)
         {
             cmbEstado.SelectedIndex = 0;
@@ -45,6 +48,7 @@ namespace Tecnica
             txtNumeroDoc.Enabled = true;
         }
 
+        //Cancela la ejecucion limpiando y habilitando campos
         protected void btnCancelar_Click(object sender, EventArgs e)
         {
             Habilitar(true);
@@ -58,69 +62,224 @@ namespace Tecnica
             cmbEstado.SelectedIndex = 0;
         }
 
-        private void Limpiar()
+        //Inserta o Modifica un suscriptor
+        protected void btnGuardar_Click(object sender, EventArgs e)
+        {
+            bool sameDoc = false;
+            bool existe = false;
+            List<Suscriptor> LS = BLLSuscriptor.CargarLista("Suscriptor");
+            if (ValidarDatos())
+            {
+                
+                Entities.Suscriptor s = new Entities.Suscriptor();
+                s.pTipoDocumento =  cmbTipo.SelectedValue;
+                s.pNumeroDocumento = Convert.ToInt32(txtNumeroDoc.Text);
+                s.pNombre = txtNombre.Text;
+                s.pApellido = txtApellido.Text;
+                s.pDireccion = txtDireccion.Text;
+                s.pEmail = txtEmail.Text;
+                s.pTelefono = txtTelefono.Text;
+                s.pNombreUsuario = txtUser.Text;
+                s.pPassword =EncryptKeys.EncriptarPassword(txtContraseña.Text,"Pass");
+
+                if (bool.Parse(ViewState["nuevo"].ToString()) == true)
+                {
+                    for (int i = 0; i < LS.Count; i++)
+                    {
+                        if (s.pNumeroDocumento == LS[i].pNumeroDocumento)
+                        {
+                            Page.ClientScript.RegisterStartupScript(this.GetType(), "MyFunction", "SameDoc();", true);
+                            existe = true;
+                            break;
+                        }
+                        if (s.pNombreUsuario == LS[i].pNombreUsuario)
+                        {
+                            Page.ClientScript.RegisterStartupScript(this.GetType(), "MyFunction", "SameUser();", true);
+                            existe = true;
+                            break;
+                        }
+                    }
+                    if (existe == false)
+                    {
+                        if (BLLSuscriptor.InsertarSuscriptor(s) == true)
+                        {
+                            
+                            Page.ClientScript.RegisterStartupScript(this.GetType(), "MyFunction", "InsertOk();", true);
+                            ViewState["nuevo"] = false;
+                            Habilitar(true);
+                            btnBuscar.Enabled = true;
+                            HabilitarInputs(true);
+                            cargarCampos();
+                        }
+                        else
+                        {
+
+                            Page.ClientScript.RegisterStartupScript(this.GetType(), "MyFunction", "Error();", true);
+                        }
+                        
+                       
+
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < LS.Count; i++)
+                    {
+                        if (s.pNumeroDocumento == LS[i].pNumeroDocumento)
+                        {
+                            sameDoc = true;
+                            break;
+                        }
+                        if (s.pNombreUsuario == LS[i].pNombreUsuario && sameDoc == false)
+                        {
+
+                            Page.ClientScript.RegisterStartupScript(this.GetType(), "MyFunction", "SameUser();", true);
+                            existe = true;
+                            break;
+                        }
+                    }
+                    if (existe == false && sameDoc == true)
+                    {
+                        if (BLLSuscriptor.Modificar(s) == true)
+                        {
+                            Page.ClientScript.RegisterStartupScript(this.GetType(), "MyFunction", "ModifyOk();", true);
+                            ViewState["nuevo"] = false;
+                            Habilitar(true);
+                            btnBuscar.Enabled = true;
+                            HabilitarInputs(true);
+                            txtNumeroDoc.Enabled = true;
+                            btnModificar.Enabled = false;
+                            cmbTipo.Enabled = true;
+                        }
+                        else
+                        {
+                            Page.ClientScript.RegisterStartupScript(this.GetType(), "MyFunction", "Error();", true);
+                        }
+                        
+                    }
+                   
+                }
+              
+
+
+            }
+
+        }
+
+        //Permite modificar un suscriptor
+        protected void btnModificar_Click(object sender, EventArgs e)
+        {
+            ViewState["nuevo"] = false;
+            Habilitar(false);
+            txtNumeroDoc.Enabled = false;
+            btnBuscar.Enabled = false;
+            btnModificar.Enabled = false;
+            cmbTipo.Enabled = false;
+            HabilitarInputs(false);
+        }
+
+        //Registra nueva suscripcion
+
+        protected void btnRegistrar_Click(object sender, EventArgs e)
         {
             
-            txtNombre.Text = "";
-            txtApellido.Text = "";
-            txtDireccion.Text = "";
-            txtTelefono.Text = "";
-            txtEmail.Text = "";
-            txtUser.Text = "";
-            txtContraseña.Text = "";
+            Entities.Suscripcion s = new Entities.Suscripcion();
+
+            if (ViewState["numerosub"] != null)
+            {
+                s.pidSuscriptor = (int)ViewState["numerosub"];
+            }
+            
+
+
+            if (ValidarDatos())
+            {
+                if (cmbEstado.SelectedIndex == 2)
+                {
+                    if (BLLSuscripcion.registrarSuscripcion(s) == true)
+                    {
+                        Page.ClientScript.RegisterStartupScript(this.GetType(), "MyFunction", "SusOk();", true);
+                        cargarCampos();
+                    }
+                    else
+                    {
+                        Page.ClientScript.RegisterStartupScript(this.GetType(), "MyFunction", "Error();", true);
+                    }
+                    
+                }
+                else
+
+                {
+                    if (cmbEstado.SelectedIndex == 1)
+                    {
+                        Page.ClientScript.RegisterStartupScript(this.GetType(), "MyFunction", "Vigente();", true);
+                    }
+                    else
+                    {
+                        Page.ClientScript.RegisterStartupScript(this.GetType(), "MyFunction", "Unregistered();", true);
+                    }
+                }
+                
+            }
+            else
+            {
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "MyFunction", "SearchFirst();", true);
+            }
         }
-        //Page.ClientScript.RegisterStartupScript(this.GetType(), "MyFunction", "Limpiar();", true);
+
+        //Valida que todos los datos esten ingresados
         public bool ValidarDatos()
         {
             if (cmbTipo.SelectedIndex == -1)
             {
-                //Page.ClientScript.RegisterStartupScript(this.GetType(), "MyFunction", "Tipo();", true);
+                
 
                 return false;
             }
             if (txtNumeroDoc.Text == "")
             {
-                //Page.ClientScript.RegisterStartupScript(this.GetType(), "MyFunction", "Doc();", true);
+               
                 return false;
             }
             if (txtNombre.Text == "")
             {
-                //Page.ClientScript.RegisterStartupScript(this.GetType(), "MyFunction", "Nombre();", true);
+                
                 return false;
             }
             if (txtApellido.Text == "")
             {
-                //Page.ClientScript.RegisterStartupScript(this.GetType(), "MyFunction", "Apellido();", true);
+                
                 return false;
             }
             if (txtDireccion.Text == "")
             {
-                //Page.ClientScript.RegisterStartupScript(this.GetType(), "MyFunction", "Direccion();", true);
+               
                 return false;
             }
             if (txtEmail.Text == "")
             {
-                //Page.ClientScript.RegisterStartupScript(this.GetType(), "MyFunction", "Mail();", true);
+                
                 return false;
             }
             if (txtTelefono.Text == "")
             {
-                //Page.ClientScript.RegisterStartupScript(this.GetType(), "MyFunction", "Telefono();", true);
+                
                 return false;
             }
             if (txtUser.Text == "")
             {
-                //Page.ClientScript.RegisterStartupScript(this.GetType(), "MyFunction", "User();", true);
+                
                 return false;
             }
             if (txtContraseña.Text == "")
             {
-                //Page.ClientScript.RegisterStartupScript(this.GetType(), "MyFunction", "Pass();", true);
+                
                 return false;
             }
             return true;
         }
 
+        //Carga los campos con los datos correspondientes
         public void cargarCampos()
         {
             bool flag = false;
@@ -146,14 +305,19 @@ namespace Tecnica
                         txtEmail.Text = Convert.ToString(LS[i].pEmail);
                         txtTelefono.Text = Convert.ToString(LS[i].pTelefono);
                         txtUser.Text = LS[i].pNombreUsuario;
-                        txtContraseña.Text = LS[i].pPassword;
+                        txtContraseña.Text = EncryptKeys.DesencriptarPassword(LS[i].pPassword, "Pass");
 
-                    }                
+                    }
                 }
                 else
                 {
                     break;
                 }
+            }
+
+            if (LIS.Count == 0)
+            {
+                cmbEstado.SelectedIndex = 2;
             }
             for (int i = 0; i < LIS.Count; i++)
             {
@@ -166,14 +330,14 @@ namespace Tecnica
                 else
                 {
                     cmbEstado.SelectedIndex = 2;
-                    
+
                 }
             }
             if (txtNumeroDoc.Text != "" && cmbTipo.SelectedValue != "")
             {
                 if (flag == false)
                 {
-                    Page.ClientScript.RegisterStartupScript(this.GetType(), "MyFunction", "NotFound();", true); 
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "MyFunction", "NotFound();", true);
                     Limpiar();
                     Habilitar(true);
                     btnModificar.Enabled = false;
@@ -185,22 +349,20 @@ namespace Tecnica
                     Page.ClientScript.RegisterStartupScript(this.GetType(), "MyFunction", "Founded();", true);
                     btnModificar.Enabled = true;
                     btnNuevo.Enabled = false;
-                    
+
                 }
             }
-                
+
 
         }
-
-        
-
+        //Habilita controles 
         public void Habilitar(bool x)
         {
             btnNuevo.Enabled = x;
             btnGuardar.Enabled = !x;
             btnCancelar.Enabled = !x;
         }
-
+        //Habilita Inputs
         public void HabilitarInputs(bool x)
         {
             txtNombre.Enabled = !x;
@@ -211,127 +373,19 @@ namespace Tecnica
             txtUser.Enabled = !x;
             txtContraseña.Enabled = !x;
         }
-        
-        protected void btnGuardar_Click(object sender, EventArgs e)
+
+        //Limpia campos
+        private void Limpiar()
         {
-            bool sameDoc = false;
-            bool existe = false;
-            List<Suscriptor> LS = BLLSuscriptor.CargarLista("Suscriptor");
-            if (ValidarDatos())
-            {
-                
-                Entities.Suscriptor s = new Entities.Suscriptor();
-                s.pTipoDocumento =  cmbTipo.SelectedValue;
-                s.pNumeroDocumento = Convert.ToInt32(txtNumeroDoc.Text);
-                s.pNombre = txtNombre.Text;
-                s.pApellido = txtApellido.Text;
-                s.pDireccion = txtDireccion.Text;
-                s.pEmail = txtEmail.Text;
-                s.pTelefono = txtTelefono.Text;
-                s.pNombreUsuario = txtUser.Text;
-                s.pPassword = txtContraseña.Text;
 
-                if (bool.Parse(ViewState["nuevo"].ToString()) == true)
-                {
-                    for (int i = 0; i < LS.Count; i++)
-                    {
-                        if (s.pNumeroDocumento == LS[i].pNumeroDocumento)
-                        {
-                            Page.ClientScript.RegisterStartupScript(this.GetType(), "MyFunction", "SameDoc();", true);
-                            existe = true;
-                            break;
-                        }
-                        if (s.pNombreUsuario == LS[i].pNombreUsuario)
-                        {
-                            Page.ClientScript.RegisterStartupScript(this.GetType(), "MyFunction", "SameUser();", true);
-                            existe = true;
-                            break;
-                        }
-                    }
-                    if (existe == false)
-                    {
-                        BLLSuscriptor.InsertarSuscriptor(s);
-                        Page.ClientScript.RegisterStartupScript(this.GetType(), "MyFunction", "InsertOk();", true);
-                        ViewState["nuevo"] = false;
-                        Habilitar(true);
-                        btnBuscar.Enabled = true;
-                        HabilitarInputs(true);
-
-                    }
-                }
-                else
-                {
-                    for (int i = 0; i < LS.Count; i++)
-                    {
-                        if (s.pNumeroDocumento == LS[i].pNumeroDocumento)
-                        {
-                            sameDoc = true;
-                            break;
-                        }
-                        if (s.pNombreUsuario == LS[i].pNombreUsuario && sameDoc == false)
-                        {
-
-                            Page.ClientScript.RegisterStartupScript(this.GetType(), "MyFunction", "SameUser();", true);
-                            existe = true;
-                            break;
-                        }
-                    }
-                    if (existe == false && sameDoc == true)
-                    {
-                        BLLSuscriptor.Modificar(s);
-                        Page.ClientScript.RegisterStartupScript(this.GetType(), "MyFunction", "ModifyOk();", true);
-                        ViewState["nuevo"] = false;
-                        Habilitar(true);
-                        btnBuscar.Enabled = true;
-                        HabilitarInputs(true);
-                        txtNumeroDoc.Enabled = true;
-                        btnModificar.Enabled = false;
-                        cmbTipo.Enabled = true;
-                    }
-                   
-                }
-              
-
-
-            }
-
+            txtNombre.Text = "";
+            txtApellido.Text = "";
+            txtDireccion.Text = "";
+            txtTelefono.Text = "";
+            txtEmail.Text = "";
+            txtUser.Text = "";
+            txtContraseña.Text = "";
         }
-
-        protected void btnModificar_Click(object sender, EventArgs e)
-        {
-            ViewState["nuevo"] = false;
-            Habilitar(false);
-            txtNumeroDoc.Enabled = false;
-            btnBuscar.Enabled = false;
-            btnModificar.Enabled = false;
-            cmbTipo.Enabled = false;
-            HabilitarInputs(false);
-        }
-
-        protected void btnRegistrar_Click(object sender, EventArgs e)
-        {
-            
-            Entities.Suscripcion s = new Entities.Suscripcion();
-
-            s.pidSuscriptor = (int)ViewState["numerosub"];
-            
-            
-            if (ValidarDatos())
-            {
-                if (cmbEstado.SelectedIndex == 2)
-                {
-                    BLLSuscripcion.registrarSuscripcion(s);
-                    Page.ClientScript.RegisterStartupScript(this.GetType(), "MyFunction", "SusOk();", true);
-                    cargarCampos();
-                }
-                else
-                {
-                    Page.ClientScript.RegisterStartupScript(this.GetType(), "MyFunction", "Vigente();", true);
-                }
-                
-            }
-        }
-
 
     }
 }

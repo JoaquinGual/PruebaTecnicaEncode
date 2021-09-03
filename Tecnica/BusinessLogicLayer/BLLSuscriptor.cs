@@ -10,6 +10,7 @@ namespace BusinessLogicLayer
 {
     public class BLLSuscriptor
     {
+        
         public static bool InsertarSuscriptor(Suscriptor s)
         {
             return DALSuscriptor.InsertarSuscriptor(s);

@@ -6,21 +6,22 @@
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link href="styles.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
     <title>Suscripciones</title>
 </head>
 <body>
+    <!-- Formulario -->
     <form id="formulario" runat="server" name="formulario">
-        <!-- Formulario -->
+
         <div class="container">
             <h2>Sucripcion</h2>
             <h5>Para realizar la suscripcion complete los siguientes datos:</h5>
         </div>
         <div class="container">
-            <hr/>
+            <hr />
             <h3>Buscar suscriptor</h3>
             <div class="form-row">
                 <div class="form-group col-md-5">
@@ -41,20 +42,20 @@
                 </div>
             </div>
 
-            <hr>
+            <hr />
             <h3>Datos del Suscriptor
             </h3>
-      <div class="form-row">
-        <div class="form-group col-md-5"
-            <asp:Label ID="lblNombre" runat="server" Text="Nombre"></asp:Label>
-            <asp:TextBox ID="txtNombre" runat="server" placeholder="Nombre" CssClass="form-control" name="nombre"></asp:TextBox>
-        </div>
-          <div class="form-group col-md-5">
-              <asp:Label ID="lblApellido" runat="server" Text="Apellido"></asp:Label>
-              <asp:TextBox ID="txtApellido" runat="server" placeholder="Apellido" CssClass="form-control" name="apellido"></asp:TextBox>
-          </div>
+            <div class="form-row">
+                <div class="form-group col-md-5">
+                    <asp:Label ID="lblNombre" runat="server" Text="Nombre"></asp:Label>
+                    <asp:TextBox ID="txtNombre" runat="server" placeholder="Nombre" CssClass="form-control" name="nombre"></asp:TextBox>
+                </div>
+                <div class="form-group col-md-5">
+                    <asp:Label ID="lblApellido" runat="server" Text="Apellido"></asp:Label>
+                    <asp:TextBox ID="txtApellido" runat="server" placeholder="Apellido" CssClass="form-control" name="apellido"></asp:TextBox>
+                </div>
 
-      </div>
+            </div>
             <div class="form-row">
                 <div class="form-group col-md-5">
                     <asp:Label ID="lblDireccion" runat="server" Text="Direccion"></asp:Label>
@@ -70,9 +71,9 @@
                 <div class="form-group col-md-5">
                     <asp:Label ID="lblTelefono" runat="server" Text="Telefono"></asp:Label>
                     <asp:TextBox ID="txtTelefono" runat="server" placeholder="Telefono" CssClass="form-control" name="telefono"></asp:TextBox>
-                   
-                    </div>
-                 <div class="form-group col-md-5">
+
+                </div>
+                <div class="form-group col-md-5">
                     <asp:Label ID="lblEstado" runat="server" Text="Estado"></asp:Label>
                     <asp:DropDownList ID="cmbEstado" runat="server" CssClass="form-control">
                         <asp:ListItem>-</asp:ListItem>
@@ -92,7 +93,7 @@
                     <asp:Button ID="btnGuardar" type="sumbit" runat="server" Text="Guardar" CssClass="btn btn-warning" OnClick="btnGuardar_Click" />
                 </div>
                 <div class="form-group col-md-2">
-                    <asp:Button ID="btnCancelar"  runat="server" Text="Cancelar" CssClass="btn btn-danger" OnClick="btnCancelar_Click" UseSubmitBehavior="False" />
+                    <asp:Button ID="btnCancelar" runat="server" Text="Cancelar" CssClass="btn btn-danger" OnClick="btnCancelar_Click" UseSubmitBehavior="False" />
                 </div>
             </div>
             <hr>
@@ -109,9 +110,10 @@
 
             <asp:Button ID="btnRegistrar" runat="server" Text="Registrar Suscripcion" CssClass="btn btn-dark" OnClick="btnRegistrar_Click" />
         </div>
-        
+
         <!-- Fin ormulario -->
-        
+
+        <%-- Metodos para ejecutar Sweet Alert --%>
         <script>
             function Vigente() {
                 swal("Este Usuario ya tiene una Suscripcion vigente!");
@@ -137,14 +139,14 @@
             function SameDoc() {
                 swal("Ya existe un Usuario con ese numero de Documento");
             }
-            function Telefono() {
-                swal("Ingrese Telefono");
+            function SearchFirst() {
+                swal("Busque un suscriptor registrado antes de registrar la suscripcion!");
             }
-            function User() {
-                swal("Ingrese Nombre de Usuario");
+            function Error() {
+                swal("Hubo un error inesperado, intentelo de nuevo mas tarde!");
             }
-            function Pass() {
-                swal("Ingrese Contraseña");
+            function Unregistered() {
+                swal("Se debe registrar el usuario antes de obtener una suscripcion!!");
             }
         </script>
 
@@ -152,11 +154,12 @@
 
         <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js"></script>
         <script type='text/javascript' src='/NuevoOva/Validacion/jquery-validation-1.8.1/additional-methods.js'></script>
-        
+
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
         <script src="../js/main.js"></script>
+        <%-- Valida que todos los datos esten correctamente ingresados con jquery validate --%>
         <script>
             $(function () {
                 jQuery.validator.addMethod("lettersonly", function (value, element) {
@@ -193,7 +196,7 @@
                         txtContraseña: {
                             required: true,
                             minlength: 5,
-                            lettersonly: true
+
                         },
 
 
@@ -219,7 +222,7 @@
                 });
             });
         </script>
-        </form>
-    
+    </form>
+
 </body>
 </html>

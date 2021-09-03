@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="BLLSuscripcion.cs" />
     <Compile Include="BLLSuscriptor.cs" />
+    <Compile Include="EncryptKeys.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

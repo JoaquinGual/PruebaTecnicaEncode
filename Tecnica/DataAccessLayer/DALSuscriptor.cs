@@ -11,13 +11,15 @@ namespace DataAccessLayer
 {
     public class DALSuscriptor
     {
-         
-       
+
+        //Inserta Suscriptor nuevo
         public static bool InsertarSuscriptor(Suscriptor suscriptor)
         {
+            Datos oDatos = new Datos();
             try
             {
-                Datos oDatos = new Datos();
+
+                
                 string proc = "registrarSuscriptor";
                 oDatos.Conectar();
                 oDatos.Comando.CommandType = CommandType.StoredProcedure;
@@ -31,23 +33,29 @@ namespace DataAccessLayer
                 oDatos.Comando.Parameters.AddWithValue("@Email", suscriptor.pEmail);
                 oDatos.Comando.Parameters.AddWithValue("@NombreUsuario", suscriptor.pNombreUsuario);
                 oDatos.Comando.Parameters.AddWithValue("@Password", suscriptor.pPassword);
+                oDatos.transaction = oDatos.conexion.BeginTransaction();
+                oDatos.Comando.Transaction = oDatos.transaction;
                 oDatos.Comando.ExecuteNonQuery();
                 oDatos.Comando.Parameters.Clear();
-                oDatos.Desconectar();
+                oDatos.CommitTransaction();
                 return true;
             }
             catch (Exception)
             {
+                oDatos.BeginTransaction();
                 return false;
-                throw;
+                
             }
             
         }
+
+        //Modifica Suscriptor
         public static bool Modificar(Suscriptor suscriptor)
         {
+            Datos oDatos = new Datos();
             try
             {
-                Datos oDatos = new Datos();
+                
                 string proc = "ActualizarSuscriptor";
                 oDatos.Conectar();
                 oDatos.Comando.CommandType = CommandType.StoredProcedure;
@@ -60,22 +68,24 @@ namespace DataAccessLayer
                 oDatos.Comando.Parameters.AddWithValue("@Telefono", suscriptor.pTelefono);
                 oDatos.Comando.Parameters.AddWithValue("@Email", suscriptor.pEmail);
                 oDatos.Comando.Parameters.AddWithValue("@NombreUsuario", suscriptor.pNombreUsuario);
-                oDatos.Comando.Parameters.AddWithValue("@Password", suscriptor.pPassword);
+                oDatos.Comando.Parameters.AddWithValue("@Password",suscriptor.pPassword);
+                oDatos.transaction = oDatos.conexion.BeginTransaction();
+                oDatos.Comando.Transaction = oDatos.transaction;
                 oDatos.Comando.ExecuteNonQuery();
                 oDatos.Comando.Parameters.Clear();
-                oDatos.Desconectar();
+                oDatos.CommitTransaction();
                 return true;
             }
             catch (Exception)
             {
-
+                oDatos.BeginTransaction();
                 return false;
             }
            
             
         }
         
-
+        //Carga lista con datos de sscriptores
         public static List<Suscriptor> cargarLista(string Tabla)
         {
             try
