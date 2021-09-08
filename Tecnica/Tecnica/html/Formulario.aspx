@@ -191,6 +191,7 @@
 
                         },
                         txtUser: {
+                            
                             required: true
                         },
                         txtContraseña: {

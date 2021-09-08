@@ -288,51 +288,79 @@ namespace Tecnica
             List<Suscriptor> LS = BLLSuscriptor.CargarLista("Suscriptor");
             List<Suscripcion> LIS = BLLSuscripcion.CargarSuscripciones("Suscripcion");
 
-
-
-            for (int i = 0; i < LS.Count; i++)
+            if (txtNumeroDoc.Text != "" && cmbTipo.SelectedValue != "")
             {
-                if (txtNumeroDoc.Text != "" && cmbTipo.SelectedValue != "")
+                var suscriptor = LS.FirstOrDefault(a => a.pTipoDocumento == cmbTipo.SelectedValue && a.pNumeroDocumento == int.Parse(txtNumeroDoc.Text));
+                if (suscriptor != null)
                 {
-                    if (cmbTipo.SelectedValue == LS[i].pTipoDocumento && Convert.ToInt32(txtNumeroDoc.Text) == LS[i].pNumeroDocumento)
-                    {
-                        flag = true;
-                        id = LS[i].pId;
-                        ViewState["numerosub"] = id;
-                        txtNombre.Text = LS[i].pNombre;
-                        txtApellido.Text = LS[i].pApellido;
-                        txtDireccion.Text = LS[i].pDireccion;
-                        txtEmail.Text = Convert.ToString(LS[i].pEmail);
-                        txtTelefono.Text = Convert.ToString(LS[i].pTelefono);
-                        txtUser.Text = LS[i].pNombreUsuario;
-                        txtContraseña.Text = EncryptKeys.DesencriptarPassword(LS[i].pPassword, "Pass");
-
-                    }
+                    flag = true;
+                    id = suscriptor.pId;
+                    ViewState["numerosub"] = id;
+                    txtNombre.Text = suscriptor.pNombre;
+                    txtApellido.Text = suscriptor.pApellido;
+                    txtDireccion.Text = suscriptor.pDireccion;
+                    txtEmail.Text = Convert.ToString(suscriptor.pEmail);
+                    txtTelefono.Text = Convert.ToString(suscriptor.pTelefono);
+                    txtUser.Text = suscriptor.pNombreUsuario;
+                    txtContraseña.Text = EncryptKeys.DesencriptarPassword(suscriptor.pPassword, "Pass");
                 }
-                else
-                {
-                    break;
-                }
+                
             }
+
+
+
+            //for (int i = 0; i < LS.Count; i++)
+            //{
+            //    if (txtNumeroDoc.Text != "" && cmbTipo.SelectedValue != "")
+            //    {
+            //        if (cmbTipo.SelectedValue == LS[i].pTipoDocumento && Convert.ToInt32(txtNumeroDoc.Text) == LS[i].pNumeroDocumento)
+            //        {
+            //            flag = true;
+            //            id = LS[i].pId;
+            //            ViewState["numerosub"] = id;
+            //            txtNombre.Text = LS[i].pNombre;
+            //            txtApellido.Text = LS[i].pApellido;
+            //            txtDireccion.Text = LS[i].pDireccion;
+            //            txtEmail.Text = Convert.ToString(LS[i].pEmail);
+            //            txtTelefono.Text = Convert.ToString(LS[i].pTelefono);
+            //            txtUser.Text = LS[i].pNombreUsuario;
+            //            txtContraseña.Text = EncryptKeys.DesencriptarPassword(LS[i].pPassword, "Pass");
+
+            //        }
+            //    }
+            //    else
+            //    {
+            //        break;
+            //    }
+            //}
 
             if (LIS.Count == 0)
             {
                 cmbEstado.SelectedIndex = 2;
             }
-            for (int i = 0; i < LIS.Count; i++)
+            var suscripcion = LIS.FirstOrDefault(a => a.pidSuscriptor == id);
+            if (suscripcion != null)
             {
-
-                if (LIS[i].pidSuscriptor == id)
-                {
-                    cmbEstado.SelectedIndex = 1;
-                    break;
-                }
-                else
-                {
-                    cmbEstado.SelectedIndex = 2;
-
-                }
+                cmbEstado.SelectedIndex = 1;
             }
+            else
+            {
+                cmbEstado.SelectedIndex = 2;
+            }
+            //for (int i = 0; i < LIS.Count; i++)
+            //{
+
+            //    if (LIS[i].pidSuscriptor == id)
+            //    {
+            //        cmbEstado.SelectedIndex = 1;
+            //        break;
+            //    }
+            //    else
+            //    {
+            //        cmbEstado.SelectedIndex = 2;
+
+            //    }
+            //}
             if (txtNumeroDoc.Text != "" && cmbTipo.SelectedValue != "")
             {
                 if (flag == false)

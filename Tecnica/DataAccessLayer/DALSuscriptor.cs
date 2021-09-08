@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Entities;
 using System.Data;
-
+using System.Data.OleDb;
 
 namespace DataAccessLayer
 {
@@ -84,7 +84,59 @@ namespace DataAccessLayer
            
             
         }
-        
+        //METODO CARGAR OBJETO
+        public static Suscriptor CrearObjetoSuscriptor(OleDbDataReader dr)
+        {
+            var suscriptor = new Suscriptor();
+
+            if (dr["IdSuscriptor"] != null )
+            { 
+                suscriptor.pId = (int)dr["IdSuscriptor"];
+            }
+            if (dr["Nombre"].ToString() != null)
+            {
+                suscriptor.pNombre = dr["Nombre"].ToString();
+            }
+            if (dr["Apellido"].ToString() != null)
+            {
+                suscriptor.pApellido = dr["Apellido"].ToString();
+            }
+            if (dr["NumeroDocumento"] != null)
+            {
+                suscriptor.pNumeroDocumento = (int)dr["NumeroDocumento"];
+            }
+            if (dr["TipoDocumento"].ToString() != null)
+            {
+                suscriptor.pTipoDocumento = dr["TipoDocumento"].ToString();
+            }
+            if (dr["Direccion"].ToString() != null)
+            {
+                suscriptor.pDireccion = dr["Direccion"].ToString();
+            }
+            if (dr["Telefono"].ToString() != null)
+            {
+                suscriptor.pTelefono = dr["Telefono"].ToString();
+            }
+            if (dr["Email"].ToString() != null)
+            {
+                suscriptor.pEmail = dr["Email"].ToString();
+            }
+            if (dr["NombreUsuario"].ToString() != null)
+            {
+                suscriptor.pNombreUsuario = dr["NombreUsuario"].ToString();
+            }
+            if (dr["Password"].ToString() != null)
+            {
+                suscriptor.pPassword = dr["Password"].ToString();
+            }
+
+
+
+
+
+            return suscriptor;
+        }
+
         //Carga lista con datos de sscriptores
         public static List<Suscriptor> cargarLista(string Tabla)
         {
@@ -96,49 +148,8 @@ namespace DataAccessLayer
                 LS.Clear();
                 while (oDatos.Lector.Read())
                 {
-                    Suscriptor s = new Suscriptor();
-
-                    if (!oDatos.Lector.IsDBNull(0))
-                    {
-                        s.pId = oDatos.Lector.GetInt32(0);
-                    }
-                    if (!oDatos.Lector.IsDBNull(1))
-                    {
-                        s.pNombre = oDatos.Lector.GetString(1);
-                    }
-                    if (!oDatos.Lector.IsDBNull(2))
-                    {
-                        s.pApellido = oDatos.Lector.GetString(2);
-                    }
-                    if (!oDatos.Lector.IsDBNull(3))
-                    {
-                        s.pNumeroDocumento = oDatos.Lector.GetInt32(3);
-                    }
-                    if (!oDatos.Lector.IsDBNull(4))
-                    {
-                        s.pTipoDocumento = oDatos.Lector.GetString(4);
-                    }
-                    if (!oDatos.Lector.IsDBNull(5))
-                    {
-                        s.pDireccion = oDatos.Lector.GetString(5);
-                    }
-                    if (!oDatos.Lector.IsDBNull(6))
-                    {
-                        s.pTelefono = oDatos.Lector.GetString(6);
-                    }
-                    if (!oDatos.Lector.IsDBNull(7))
-                    {
-                        s.pEmail = oDatos.Lector.GetString(7);
-                    }
-                    if (!oDatos.Lector.IsDBNull(8))
-                    {
-                        s.pNombreUsuario = oDatos.Lector.GetString(8);
-                    }
-                    if (!oDatos.Lector.IsDBNull(9))
-                    {
-                        s.pPassword = oDatos.Lector.GetString(9);
-                    }
-                    LS.Add(s);
+                    
+                    LS.Add(CrearObjetoSuscriptor(oDatos.Lector));
                 }
                 oDatos.Desconectar();
                 return LS;
